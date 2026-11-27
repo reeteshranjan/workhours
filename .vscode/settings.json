@@ -1,0 +1,41 @@
+{
+  // Use the project's own TypeScript (from node_modules once installed), so errors
+  // in the editor match `npm run build`.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Lets .ts files see the types of imported .svelte components.
+  "svelte.enable-ts-plugin": true,
+
+  // Prettier formats on save; ESLint applies its fixes on save.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.validate": ["javascript", "typescript", "svelte"],
+
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Build output: keep it out of search and file watching.
+  "search.exclude": {
+    "dist/**": true
+  },
+  "files.watcherExclude": {
+    "**/dist/**": true
+  },
+
+  // The docs are hand-formatted: don't let Prettier rewrite them on save.
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "markdownlint.config": {
+    "MD013": false, // line length: the docs use one line per paragraph
+    "MD033": { "allowed_elements": ["img"] }, // the README's screenshots need a width
+    "MD060": false  // table pipe spacing: the docs use compact |---| rows
+  }
+}

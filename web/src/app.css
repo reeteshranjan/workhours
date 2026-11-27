@@ -1,0 +1,220 @@
+/* Design tokens (DESIGN §10.1): neutral surfaces, one accent per meaning, light and dark
+   following the OS setting. */
+:root {
+  --font-sans: 'Geist Variable', system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+
+  /* Surfaces and text */
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #eef0f3;
+  --border: #e2e5ea;
+  --text: #14171c;
+  --text-muted: #667085;
+
+  /* Meaning accents, each with a soft background */
+  --running: #16a34a;
+  --running-bg: #e8f7ee;
+  --paused: #d97706;
+  /* Amber dark enough for small text on --surface. */
+  --paused-text: #b45309;
+  --paused-bg: #fdf1dc;
+  --warning: #dc2626;
+  --warning-bg: #fde9e9;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  --focus: #2563eb;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1013;
+    --surface: #16191e;
+    --surface-2: #1f232a;
+    --border: #2a2f37;
+    --text: #eceef2;
+    --text-muted: #9aa3b2;
+
+    --running: #4ade80;
+    --running-bg: #12301f;
+    --paused: #fbbf24;
+    /* Amber dark enough for small text on --surface. */
+    --paused-text: #fbbf24;
+    --paused-bg: #35280d;
+    --warning: #f87171;
+    --warning-bg: #3a1618;
+
+    --focus: #60a5fa;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Timers use fixed-width digits so they don't jitter as they tick. */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Shared bits: buttons, focus ring, status dots ---- */
+
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Quiet by default: a bordered secondary button. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 120ms,
+    border-color 120ms,
+    color 120ms;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.btn:disabled {
+  color: var(--text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Slightly stronger: filled with the text colour. */
+.btn-primary {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--text);
+  opacity: 0.85;
+}
+
+.btn-ghost {
+  color: var(--text-muted);
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* A square button holding one symbol. */
+.btn-icon {
+  width: 36px;
+  padding: 0;
+  font-size: 1rem;
+}
+
+/* Destructive confirmation (Close project): the warning colour, filled. */
+.btn-danger {
+  color: #fff;
+  background: var(--warning);
+  border-color: var(--warning);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--warning);
+  opacity: 0.85;
+}
+
+/* A native <dialog> opened with showModal(): centred by the browser, dimmed page behind it. */
+.dialog {
+  width: min(440px, calc(100vw - 2 * var(--space-4)));
+  max-height: calc(100vh - 2 * var(--space-4));
+  padding: var(--space-5);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 48px rgb(0 0 0 / 0.28);
+  overflow: auto;
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+/* A status dot: green and pulsing while running, amber when paused. */
+.dot {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.dot-running {
+  background: var(--running);
+  animation: pulse 2s ease-out infinite;
+}
+
+.dot-paused {
+  background: var(--paused);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--running) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot-running {
+    animation: none;
+  }
+}

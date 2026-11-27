@@ -1,0 +1,27 @@
+{
+  // VS Code suggests these when the folder is opened. See DESIGN.md §2 and §13.
+  "recommendations": [
+    "svelte.svelte-vscode",           // Svelte 5 UI: highlighting, type checking, completion
+    "vitest.explorer",                // unit and API tests
+    "ms-playwright.playwright",       // end-to-end tests in Chrome
+    "dbaeumer.vscode-eslint",         // linting (TypeScript and Svelte)
+    "esbenp.prettier-vscode",         // formatting
+    "yy0931.vscode-sqlite3-editor",   // look at ~/.workhours/workhours.db (don't edit while Work Hours runs)
+    "humao.rest-client",              // try the API from .http files
+    "davidanson.vscode-markdownlint"  // the docs
+  ],
+  // VS Code won't suggest these here. This doesn't disable them if already installed:
+  // use Extensions view → gear → "Disable (Workspace)" for that.
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript-next",           // editor must use the project's TypeScript, not a nightly
+    "oxc.oxc-vscode",                             // second linter/formatter beside ESLint and Prettier
+    "rvest.vs-code-prettier-eslint",              // second formatter competing with Prettier
+    "vue.volar",                                  // Vue isn't used; it can hook into TypeScript
+    "bradlc.vscode-tailwindcss",                  // plain CSS with theme tokens, no Tailwind
+    "vunguyentuan.vscode-postcss",
+    "styled-components.vscode-styled-components",
+    "ms-edgedevtools.vscode-edge-devtools",       // Chrome only
+    "firefox-devtools.vscode-firefox-debug",      // Chrome only
+    "msjsdiag.vscode-react-native"
+  ]
+}

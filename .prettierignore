@@ -1,0 +1,8 @@
+dist
+.dev-data
+.e2e-data
+test-results
+playwright-report
+package-lock.json
+*.md
+.vscode
